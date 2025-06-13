@@ -1,14 +1,18 @@
 pipeline {
     agent any
 
-    environment {
-        VERSION = '1.0.0'
+    tools {
+        maven 'Maven 3.9'
     }
 
     stages {
         stage('Build') {
             steps {
-                echo "Building version ${env.VERSION}"
+                // For Windows users
+                bat 'mvn --version'
+
+                // For Linux/macOS, use:
+                // sh 'mvn --version'
             }
         }
     }
