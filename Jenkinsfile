@@ -17,4 +17,9 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            echo 'Pipeline has completed (Post-build action)'
+        }
+    }
 }
