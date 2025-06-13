@@ -1,25 +1,30 @@
 pipeline {
     agent any
+
+    parameters {
+        booleanParam(name: 'executeTests', defaultValue: true, description: 'Run tests or not')
+    }
+
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
+                echo 'Building...'
             }
         }
+
         stage('Test') {
+            when {
+                expression { return params.executeTests == true }
+            }
             steps {
-                echo 'Testing..'
+                echo 'Running tests...'
             }
         }
+
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
+                echo 'Deploying...'
             }
-        }
-    }
-    post {
-        always {
-            echo 'Pipeline has completed (Post-build action)'
         }
     }
 }
