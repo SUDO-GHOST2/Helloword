@@ -1,29 +1,14 @@
 pipeline {
     agent any
 
-    parameters {
-        booleanParam(name: 'executeTests', defaultValue: true, description: 'Run tests or not')
+    environment {
+        VERSION = '1.0.0'
     }
 
     stages {
         stage('Build') {
             steps {
-                echo 'Building...'
-            }
-        }
-
-        stage('Test') {
-            when {
-                expression { return params.executeTests == true }
-            }
-            steps {
-                echo 'Running tests...'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                echo 'Deploying...'
+                echo "Building version ${env.VERSION}"
             }
         }
     }
