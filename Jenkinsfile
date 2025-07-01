@@ -22,7 +22,7 @@ pipeline {
             steps {
                 echo 'Running Java program'
                 // Run the compiled Java class
-                bat 'java HelloWord'
+                bat 'java HelloWorld'
             }
         }
     }
