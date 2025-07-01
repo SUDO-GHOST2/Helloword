@@ -1,37 +1,38 @@
 pipeline {
-    agent any
-
-    parameters {
-        string(name: 'VERSION', defaultValue: '', description: 'version to deploy on prod')
-        choice(name: 'VERSION', choices: ['1.1.0', '1.2.0', '1.3.0'], description: '')
-        booleanParam(name: 'executeTests', defaultValue: false, description: 'Run test stage or not')
-    }
-
-    environment {
-        NEW_VERSION = '1.3.0'
-    }
+    agent any  // Use any available agent or executor
 
     stages {
-        stage('build') {
+
+        stage('Clone Repository') {
             steps {
-                echo 'Building Project'
+                // Jenkins automatically clones from the GitHub repo you specify in the job config
+                echo 'Repository cloned automatically by Jenkins'
             }
         }
 
-        stage('test') {
-            when {
-                expression { params.executeTests }
-            }
+        stage('Compile Java') {
             steps {
-                echo 'Testing Project'
+                echo 'Compiling simplejava.java'
+                // Compile the Java file
+                bat 'javac simplejava.java'
             }
         }
 
-        stage('deploy') {
+        stage('Run Java Program') {
             steps {
-                echo "Deploying Project"
-                echo "DEploying version ${params.VERSION}"
+                echo 'Running Java program'
+                // Run the compiled Java class
+                bat 'java simplejava'
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Build and Run completed successfully 🎉'
+        }
+        failure {
+            echo 'Something went wrong ❌'
         }
     }
 }
