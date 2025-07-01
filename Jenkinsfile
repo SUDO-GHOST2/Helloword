@@ -14,7 +14,7 @@ pipeline {
             steps {
                 echo 'Compiling simplejava.java'
                 // Compile the Java file
-                bat 'javac simplejava.java'
+                bat 'javac HelloWorld.java'
             }
         }
 
@@ -22,7 +22,7 @@ pipeline {
             steps {
                 echo 'Running Java program'
                 // Run the compiled Java class
-                bat 'java simplejava'
+                bat 'java HelloWord'
             }
         }
     }
